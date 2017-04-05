@@ -1,46 +1,58 @@
 package world;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class Reprod {
+
 	
-	private static ArrayList<Record> records; 
+	private static HashMap<String,Record> records; 
 	static Timer timer;
 	
 	public Reprod(){
-		records = new ArrayList<Record>();
+		records = new HashMap<String,Record>();
 		timer = new Timer();
 	}
 	
-	public ArrayList<Record> getRecords() {
+	public HashMap<String,Record> getRecords() {
 		return records;
 	}
+	
 
-	public void scheduleOnce(String name, String voiceFile, Date added, Date date){
+	public void eraseTask(String name){
+		Record r = records.remove(name);
+		r.cancel();
+		
+	}
+
+	public boolean scheduleOnce(String name, String voiceFile, Date added, Date date){
+		if (records.containsKey(name)) return false;
 		Record task = new Once(name, voiceFile, added, true, date, true);
-		records.add(task);
+		records.put(name,task);
 		timer.schedule(task, date);
+		return true;
 	}
 	
-	public void scheduleSmallLoop(String name, String voiceFile, Date added, int cadaN, Date start, Metric metric){
+	public boolean scheduleSmallLoop(String name, String voiceFile, Date added, int cadaN, Date start, Metric metric){
+		if (records.containsKey(name)) return false;
 		Record task = new SmallLoop(name, voiceFile, added, true, cadaN, start, metric);
-		records.add(task);
+		records.put(name,task);
 		timer.scheduleAtFixedRate(task, start, cadaN*metric.getMilis());
+		return true;
 	}
 	
-	public void scheduleBigLoop(String name, String voiceFile, Date added, int cadaN, Date start, Metric metric){
+	public boolean scheduleBigLoop(String name, String voiceFile, Date added, int cadaN, Date start, Metric metric){
+		if (records.containsKey(name)) return false;
 		Record task = new BigLoop(name, voiceFile, added, true, cadaN, start, metric);
-		records.add(task);
+		records.put(name,task);
 		timer.schedule(task, start);
+		return true;
 	}
 	
 	public static void rescheduleBigLoop(BigLoop bl){
-		System.out.println(records.remove(bl));
 		Record task = new BigLoop(bl);
-		records.add(task);
+		records.put(bl.getName(),task);
 		timer.schedule(task, bl.getStart());
 		
 	}
