@@ -36,6 +36,8 @@ public abstract class Record extends TimerTask implements Serializable {
 		try{
 
 			if(voiceFile.endsWith(".mp3")){
+				System.out.println("mp3");
+				System.out.println(voiceFile);
 				BufferedInputStream bs = new BufferedInputStream(new FileInputStream(voiceFile));
 				Player p = new Player(bs);
 				p.play();

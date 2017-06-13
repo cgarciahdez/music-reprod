@@ -21,6 +21,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalField;
 import java.util.Calendar;
 import java.util.Date; 
 import java.util.Properties;
@@ -36,6 +40,8 @@ import com.github.lgooddatepicker.components.TimePickerSettings.TimeIncrement;
 public class DialogoAdd extends JDialog implements ActionListener {
 	private JTextField nombre;
 	private File chosen;
+	private JCheckBox[] dias;
+	private String type;
 
 	public static final String ARCHIVO = "Archivos";
 	public static final String AGREGAR = "Agregar";
@@ -50,9 +56,12 @@ public class DialogoAdd extends JDialog implements ActionListener {
 	private JTextField cadaN;
 	private JPanel panel;
 	private Main frame;
-	private JComboBox metric;
+	private JComboBox<Metric> metric;
 	private JLabel lblChosenfile;
 	private JLabel lblRepetirCada;
+	private DatePicker datePicker;
+	private TimePicker timePicker;
+	private JLabel lblDasDeLa;
 	public DialogoAdd(Main frame) {
 
 		this.frame = frame;
@@ -84,7 +93,7 @@ public class DialogoAdd extends JDialog implements ActionListener {
 		getContentPane().add(btnChooseFile);
 
 		panel = new JPanel();
-		panel.setBounds(282, 51, 288, 245);
+		panel.setBounds(295, 51, 288, 245);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
@@ -109,54 +118,63 @@ public class DialogoAdd extends JDialog implements ActionListener {
 		//		
 		//		String[] metricNames = new String[metrics.length];
 
-		metric = new JComboBox(Metric.values());
+		metric = new JComboBox<Metric>(Metric.values());
 		metric.setBounds(153, 117, 129, 27);
 		panel.add(metric);
 		
-		DatePicker datePicker_1 = new DatePicker();
-		datePicker_1.setBounds(62, 15, 220, 29);
-		panel.add(datePicker_1);
+		datePicker = new DatePicker();
+		datePicker.setBounds(62, 15, 220, 29);
+		panel.add(datePicker);
 		
 		
 		TimePickerSettings timeSettings = new TimePickerSettings();
         timeSettings.setDisplaySpinnerButtons(true);
         timeSettings.setInitialTimeToNow();
         timeSettings.generatePotentialMenuTimes(TimeIncrement.FiveMinutes, null, null);
-        TimePicker timePicker_1 = new TimePicker(timeSettings);
-		timePicker_1.setBounds(62, 70, 200, 29);
-		panel.add(timePicker_1);
+        timePicker = new TimePicker(timeSettings);
+		timePicker.setBounds(62, 70, 200, 29);
+		panel.add(timePicker);
 		
-		JLabel lblDasDeLa = new JLabel("Días de la semana para reproducir");
+		lblDasDeLa = new JLabel("Días de la semana para reproducir");
 		lblDasDeLa.setBounds(17, 159, 245, 16);
 		panel.add(lblDasDeLa);
+		
+		dias = new JCheckBox[7];
 		
 		JCheckBox chckbxL = new JCheckBox("L");
 		chckbxL.setBounds(6, 176, 44, 50);
 		panel.add(chckbxL);
+		dias[1]=chckbxL;
 		
 		JCheckBox chckbxM = new JCheckBox("M");
 		chckbxM.setBounds(45, 176, 44, 50);
 		panel.add(chckbxM);
+		dias[2]=chckbxM;
 		
 		JCheckBox chckbxI = new JCheckBox("I");
 		chckbxI.setBounds(88, 176, 36, 50);
 		panel.add(chckbxI);
+		dias[3]=chckbxI;
 		
 		JCheckBox chckbxJ = new JCheckBox("J");
 		chckbxJ.setBounds(125, 176, 36, 50);
 		panel.add(chckbxJ);
+		dias[4]=chckbxJ;
 		
 		JCheckBox chckbxV = new JCheckBox("V");
 		chckbxV.setBounds(162, 176, 44, 50);
 		panel.add(chckbxV);
+		dias[5]=chckbxV;
 		
 		JCheckBox chckbxS = new JCheckBox("S");
 		chckbxS.setBounds(201, 176, 44, 50);
 		panel.add(chckbxS);
+		dias[6]=chckbxS;
 		
 		JCheckBox chckbxD = new JCheckBox("D");
 		chckbxD.setBounds(238, 176, 44, 50);
 		panel.add(chckbxD);
+		dias[0]=chckbxD;
 
 		JRadioButton chckbxRepetirPorIntervalo = new JRadioButton("Repetir por intervalo");
 		chckbxRepetirPorIntervalo.setBounds(30, 217, 176, 23);
@@ -167,7 +185,7 @@ public class DialogoAdd extends JDialog implements ActionListener {
 		JRadioButton chckbxNoRepetir = new JRadioButton("No repetir");
 		chckbxNoRepetir.setBounds(30, 192, 128, 23);
 		getContentPane().add(chckbxNoRepetir);
-		chckbxRepetirPorIntervalo.setActionCommand(ONCE);
+		chckbxNoRepetir.setActionCommand(ONCE);
 		chckbxNoRepetir.addActionListener(this);
 		chckbxNoRepetir.setSelected(true);
 
@@ -197,11 +215,40 @@ public class DialogoAdd extends JDialog implements ActionListener {
 		lblChosenfile = new JLabel("");
 		lblChosenfile.setBounds(30, 141, 205, 16);
 		getContentPane().add(lblChosenfile);
+		
+		managePanelChange(ONCE);
+		type=ONCE;
 
 
 	}
 
 	private void managePanelChange(String type){
+		
+		if (type==ONCE){
+			lblRepetirCada.setEnabled(false);
+			cadaN.setEnabled(false);
+			metric.setEnabled(false);
+			for (JCheckBox jc : dias){
+				jc.setEnabled(false);
+			}
+			lblDasDeLa.setEnabled(false);
+		} else if(type==LOOP){
+			lblRepetirCada.setEnabled(true);
+			cadaN.setEnabled(true);
+			metric.setEnabled(true);
+			for (JCheckBox jc : dias){
+				jc.setEnabled(false);
+			}
+			lblDasDeLa.setEnabled(false);
+		} else if(type==LIST){
+			lblRepetirCada.setEnabled(false);
+			cadaN.setEnabled(false);
+			metric.setEnabled(false);
+			for (JCheckBox jc : dias){
+				jc.setEnabled(true);
+			}
+			lblDasDeLa.setEnabled(true);
+		}
 		
 
 	}
@@ -226,21 +273,33 @@ public class DialogoAdd extends JDialog implements ActionListener {
 				lblChosenfile.setText("");
 			}
 		} else if (e.getActionCommand()==AGREGAR){
-			if(chosen==null){
+			LocalDate date = datePicker.getDate();
+			LocalTime time = timePicker.getTime();
+			if(chosen==null||nombre.getText()==""||date==null||time==null){
 				System.out.println("whaat");
-				JOptionPane.showMessageDialog(this, "Debe escoger un archivo de sonido","Capos incompletos", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Debe llenar todos los campos","Campos incompletos", JOptionPane.WARNING_MESSAGE);
+			}
+			Date add = new Date(date.get(ChronoField.YEAR)-1900,date.getMonthValue()-1,date.getDayOfMonth(),time.getHour(),time.getMinute());
+			if(type==ONCE){
+				boolean did =frame.agregarOnce(nombre.getText(), chosen.getAbsolutePath(), add);
+			} else if(type==LOOP){
+				frame.agregarLoop(((Metric)metric.getSelectedItem()), nombre.getName(), chosen.getAbsolutePath(), Integer.parseInt(cadaN.getText()), add);
+			}else if(type == LIST){
+				boolean days[] = new boolean[7];
+				for(int i=0;i<days.length;i++){
+					days[i]=dias[i].isSelected();
+				}
+				frame.agregarLista(nombre.getText(), chosen.getAbsolutePath(), add, days);
 			}
 			System.out.println(chosen);
 
 		} else if (e.getActionCommand()==CANCELAR){
 			this.dispose();
 
-		} else if (e.getActionCommand()==ONCE){
-
-		} else if(e.getActionCommand()==LOOP){
-
-		} else if(e.getActionCommand()==LIST){
-
+		} else if (e.getActionCommand()==ONCE||e.getActionCommand()==LOOP||e.getActionCommand()==LIST){
+			System.out.println(e.getActionCommand());
+			managePanelChange(e.getActionCommand());
+			type = e.getActionCommand();
 		}
 
 	}
