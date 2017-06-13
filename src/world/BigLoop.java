@@ -26,4 +26,15 @@ public class BigLoop extends Loop {
 		
 	}
 
+	@Override
+	public void schedule() {
+		Date now = new Date();
+		Date add = getStart();
+		while(add.before(now)){
+			add = new Date((now.getTime()+(getCadaN()*getMetric().getMilis())));
+		}
+		setStart(add);
+		Reprod.timer.schedule(this, getStart());		
+	}
+
 }

@@ -27,6 +27,10 @@ public abstract class Loop extends Record {
 	public Metric getMetric() {
 		return metric;
 	}
+	
+	public void setStart(Date start){
+		this.start = start;
+	}
 
 
 

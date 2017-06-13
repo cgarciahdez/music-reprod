@@ -19,6 +19,20 @@ public class SmallLoop extends Loop {
 		
 	}
 
+	@Override
+	public void schedule() {
+		Date now = new Date();
+		Date add = getStart();
+		while(add.before(now)){
+			add = new Date((now.getTime()+(getCadaN()*getMetric().getMilis())));
+		}
+		setStart(add);
+		System.out.println("scheduled: "+getStart());
+		Reprod.timer.schedule(this, getStart(), getCadaN()*getMetric().getMilis());
+	}
+	
+	
+
 	
 
 }

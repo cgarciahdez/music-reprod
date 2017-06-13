@@ -29,15 +29,21 @@ public class Once extends Record {
 	}
 
 
-
-	
-
-
-
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		play();
+		
+	}
+
+
+
+	@Override
+	public void schedule() {
+		Date now = new Date();
+		if(now.before(date)){
+			Reprod.timer.schedule(this, date);
+		}
 		
 	}
 
