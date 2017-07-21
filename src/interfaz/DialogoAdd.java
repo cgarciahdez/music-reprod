@@ -93,7 +93,7 @@ public class DialogoAdd extends JDialog implements ActionListener {
 		this.frame = frame;
 		getContentPane().setLayout(null);
 
-		setMinimumSize(new Dimension(723, 377));
+		setMinimumSize(new Dimension(723, 400));
 
 		titulo = new JLabel("Agregar nuevo Mensaje");
 		titulo.setFont(new Font("Lucida Grande", Font.BOLD, 16));
@@ -207,8 +207,8 @@ public class DialogoAdd extends JDialog implements ActionListener {
 		Metric[] metrics = {Metric.HOUR,Metric.MINUTE, Metric.SECOND};
 
 
-		metric = new JComboBox<Metric>(metrics);
-//		metric = new JComboBox<>();
+//		metric = new JComboBox<Metric>(metrics);
+		metric = new JComboBox<>();
 		metric.setBounds(189, 257, 129, 27);
 		getContentPane().add(metric);
 		
