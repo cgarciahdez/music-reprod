@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class SmallLoop extends Loop {
 	
+	private Date endDate;
+	
 	
 
 	public SmallLoop(String name, String voiceFile, Date added, boolean active,
@@ -14,19 +16,34 @@ public class SmallLoop extends Loop {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		play();
+		if(endDate!=null){
+			Date now = new Date();
+			if (now.after(endDate)){
+				this.cancel();
+			}else{
+				play();
+			}
+		}
+		else {
+			play();
+		}
 		
+		
+		
+	}
+	
+	public void setEndDate(Date end){
+		endDate = end;
 	}
 
 	@Override
 	public void schedule() {
-		Date now = new Date();
-		Date add = getStart();
-		while(add.before(now)){
-			add = new Date((now.getTime()+(getCadaN()*getMetric().getMilis())));
-		}
-		setStart(add);
+//		Date now = new Date();
+//		Date add = getStart();
+//		while(add.before(now)){
+//			add = new Date((now.getTime()+(getCadaN()*getMetric().getMilis())));
+//		}
+//		setStart(add);
 		System.out.println("scheduled: "+getStart());
 		Reprod.timer.schedule(this, getStart(), getCadaN()*getMetric().getMilis());
 	}

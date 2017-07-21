@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.TimerTask;
 
+import javax.swing.JOptionPane;
+
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import sun.audio.AudioPlayer;
@@ -20,7 +22,6 @@ public abstract class Record extends TimerTask implements Serializable {
 	private String voiceFile;
 	private Date added;
 	private boolean active;
-	private int group = -1;
 
 	public Record(String name, String voiceFile, Date added, boolean active) {
 		super();
@@ -49,20 +50,10 @@ public abstract class Record extends TimerTask implements Serializable {
 				AudioPlayer.player.start(as);
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Hubo un problema reproduciendo el archivo de sonido. Asegúrese que el archivo que escogió es un archivo de sonido váildo.");
 		}
 	}
 
-
-
-
-	public int getGroup() {
-		return group;
-	}
-
-	public void setGroup(int group) {
-		this.group = group;
-	}
 
 	public String getName() {
 		return name;
