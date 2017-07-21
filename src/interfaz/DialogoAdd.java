@@ -93,7 +93,7 @@ public class DialogoAdd extends JDialog implements ActionListener {
 		this.frame = frame;
 		getContentPane().setLayout(null);
 
-		setMinimumSize(new Dimension(723, 430));
+		setMinimumSize(new Dimension(723, 450));
 
 		titulo = new JLabel("Agregar nuevo Mensaje");
 		titulo.setFont(new Font("Lucida Grande", Font.BOLD, 16));
@@ -160,12 +160,12 @@ public class DialogoAdd extends JDialog implements ActionListener {
 		dias[1]=chckbxL;
 
 		JCheckBox chckbxM = new JCheckBox("M");
-		chckbxM.setBounds(65, 205, 44, 28);
+		chckbxM.setBounds(65, 205, 41, 28);
 		getContentPane().add(chckbxM);
 		dias[2]=chckbxM;
 
 		JCheckBox chckbxI = new JCheckBox("M");
-		chckbxI.setBounds(108, 205, 34, 28);
+		chckbxI.setBounds(106, 205, 38, 28);
 		getContentPane().add(chckbxI);
 		dias[3]=chckbxI;
 
@@ -237,7 +237,7 @@ public class DialogoAdd extends JDialog implements ActionListener {
 		getContentPane().add(timePicker);
 
 		JLabel lblHora = new JLabel("Hora Inicio");
-		lblHora.setBounds(409, 147, 51, 16);
+		lblHora.setBounds(409, 147, 55, 16);
 		getContentPane().add(lblHora);
 
 		timePicker_1 = new TimePicker(timeSettings);
