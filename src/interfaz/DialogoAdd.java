@@ -110,7 +110,7 @@ public class DialogoAdd extends JDialog implements ActionListener {
 		nombre.setColumns(10);
 
 		JLabel lblArchivoDeSonido = new JLabel("Archivo de sonido");
-		lblArchivoDeSonido.setBounds(33, 113, 140, 38);
+		lblArchivoDeSonido.setBounds(43, 112, 117, 38);
 		getContentPane().add(lblArchivoDeSonido);
 		
 		try {
@@ -150,51 +150,51 @@ public class DialogoAdd extends JDialog implements ActionListener {
 		btnCancelar.setBounds(390, 308, 117, 29);
 		getContentPane().add(btnCancelar);
 
-		lblDasDeLa = new JLabel("Días de la semana para reproducir");
+		lblDasDeLa = new JLabel("D\u00EDas de la semana para reproducir");
 		lblDasDeLa.setBounds(23, 188, 245, 16);
 		getContentPane().add(lblDasDeLa);
 
 		JCheckBox chckbxL = new JCheckBox("L");
-		chckbxL.setBounds(26, 193, 44, 50);
+		chckbxL.setBounds(26, 205, 37, 28);
 		getContentPane().add(chckbxL);
 		dias[1]=chckbxL;
 
 		JCheckBox chckbxM = new JCheckBox("M");
-		chckbxM.setBounds(65, 193, 44, 50);
+		chckbxM.setBounds(65, 205, 44, 28);
 		getContentPane().add(chckbxM);
 		dias[2]=chckbxM;
 
 		JCheckBox chckbxI = new JCheckBox("M");
-		chckbxI.setBounds(108, 193, 44, 50);
+		chckbxI.setBounds(108, 205, 34, 28);
 		getContentPane().add(chckbxI);
 		dias[3]=chckbxI;
 
 		JCheckBox chckbxJ = new JCheckBox("J");
-		chckbxJ.setBounds(145, 193, 36, 50);
+		chckbxJ.setBounds(145, 205, 36, 28);
 		getContentPane().add(chckbxJ);
 		dias[4]=chckbxJ;
 
 		JCheckBox chckbxV = new JCheckBox("V");
-		chckbxV.setBounds(182, 193, 44, 50);
+		chckbxV.setBounds(182, 205, 34, 28);
 		getContentPane().add(chckbxV);
 		dias[5]=chckbxV;
 
 		JCheckBox chckbxS = new JCheckBox("S");
-		chckbxS.setBounds(221, 193, 44, 50);
+		chckbxS.setBounds(221, 205, 34, 28);
 		getContentPane().add(chckbxS);
 		dias[6]=chckbxS;
 
 		JCheckBox chckbxD = new JCheckBox("D");
-		chckbxD.setBounds(258, 193, 44, 50);
+		chckbxD.setBounds(258, 205, 44, 28);
 		getContentPane().add(chckbxD);
 		dias[0]=chckbxD;
 
 		lblRepetirCada = new JLabel("cada");
-		lblRepetirCada.setBounds(100, 261, 51, 16);
+		lblRepetirCada.setBounds(100, 261, 34, 16);
 		getContentPane().add(lblRepetirCada);
 
 		chckbxRepetir = new JCheckBox("Repetir");
-		chckbxRepetir.setBounds(23, 257, 82, 23);
+		chckbxRepetir.setBounds(23, 257, 67, 23);
 		chckbxRepetir.addActionListener(this);
 		chckbxRepetir.setActionCommand(REPETIR);
 		getContentPane().add(chckbxRepetir);
@@ -230,14 +230,14 @@ public class DialogoAdd extends JDialog implements ActionListener {
 		}
 
 		JLabel lblFecha = new JLabel("Fecha");
-		lblFecha.setBounds(431, 74, 61, 16);
+		lblFecha.setBounds(431, 74, 34, 16);
 		getContentPane().add(lblFecha);
 		timePicker = new TimePicker(timeSettings);
 		timePicker.setBounds(495, 141, 220, 29);
 		getContentPane().add(timePicker);
 
 		JLabel lblHora = new JLabel("Hora Inicio");
-		lblHora.setBounds(409, 147, 74, 16);
+		lblHora.setBounds(409, 147, 51, 16);
 		getContentPane().add(lblHora);
 
 		timePicker_1 = new TimePicker(timeSettings);
