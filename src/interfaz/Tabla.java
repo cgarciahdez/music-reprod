@@ -97,7 +97,7 @@ public class Tabla extends JFrame implements ActionListener {
 	private void crearVentana(){
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		setMinimumSize(new Dimension(730, 500));
+		setMinimumSize(new Dimension(730, 520));
 		BufferedImage icon = null;
 		try {
 			//		    img = ImageIO.read(new File("./imgs/logo.png"));));
@@ -360,7 +360,7 @@ public class Tabla extends JFrame implements ActionListener {
 		panel.setMinimumSize(new Dimension(600, 400));
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{900, 0};
-		gbl_panel.rowHeights = new int[]{29, 29, 0};
+		gbl_panel.rowHeights = new int[] {50, 50, 0};
 		gbl_panel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
@@ -370,7 +370,6 @@ public class Tabla extends JFrame implements ActionListener {
 		btnAgregar.addActionListener(this);
 		btnAgregar.setActionCommand(AGREGAR);
 		GridBagConstraints gbc_btnAgregar = new GridBagConstraints();
-		gbc_btnAgregar.anchor = GridBagConstraints.NORTH;
 		gbc_btnAgregar.insets = new Insets(0, 0, 5, 0);
 		gbc_btnAgregar.gridx = 0;
 		gbc_btnAgregar.gridy = 0;
