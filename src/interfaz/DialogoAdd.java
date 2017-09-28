@@ -93,7 +93,7 @@ public class DialogoAdd extends JDialog implements ActionListener {
 		this.frame = frame;
 		getContentPane().setLayout(null);
 
-		setMinimumSize(new Dimension(723, 450));
+		setMinimumSize(new Dimension(723, 500));
 
 		titulo = new JLabel("Agregar nuevo Mensaje");
 		titulo.setFont(new Font("Lucida Grande", Font.BOLD, 16));
