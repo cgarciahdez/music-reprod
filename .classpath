@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/camilagarciahernandez/Downloads/JLayer1.0.1 2/jl1.0.1.jar" sourcepath="/Users/camilagarciahernandez/Downloads/JLayer1.0.1 2/doc"/>
-	<classpathentry kind="lib" path="/Users/camilagarciahernandez/Downloads/LGoodDatePicker-10.2.3.jar" sourcepath="/Users/camilagarciahernandez/Downloads/LGoodDatePicker-10.2.3-sources.jar"/>
-	<classpathentry kind="lib" path="/Users/camilagarciahernandez/Downloads/LGoodDatePicker-10.2.3-javadoc.jar"/>
-	<classpathentry kind="lib" path="/Users/camilagarciahernandez/Downloads/LGoodDatePicker-10.2.3-sources.jar"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Papa/Desktop/jl1.0.1.jar" sourcepath="/Users/camilagarciahernandez/Downloads/JLayer1.0.1 2/doc"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Papa/Desktop/LGoodDatePicker-10.2.3.jar" sourcepath="/Users/camilagarciahernandez/Downloads/LGoodDatePicker-10.2.3-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Papa/Desktop/LGoodDatePicker-10.2.3-javadoc.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Papa/Desktop/LGoodDatePicker-10.2.3-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -36,7 +36,6 @@ import java.util.Calendar;
 import java.util.Date; 
 import java.util.Properties;
 
-import com.apple.dnssd.TXTRecord;
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.TimePickerSettings;
 
@@ -93,7 +92,7 @@ public class DialogoAdd extends JDialog implements ActionListener {
 		this.frame = frame;
 		getContentPane().setLayout(null);
 
-		setMinimumSize(new Dimension(723, 450));
+		setMinimumSize(new Dimension(750, 430));
 
 		titulo = new JLabel("Agregar nuevo Mensaje");
 		titulo.setFont(new Font("Lucida Grande", Font.BOLD, 16));
@@ -150,7 +149,7 @@ public class DialogoAdd extends JDialog implements ActionListener {
 		btnCancelar.setBounds(390, 308, 117, 29);
 		getContentPane().add(btnCancelar);
 
-		lblDasDeLa = new JLabel("D\u00EDas de la semana para reproducir");
+		lblDasDeLa = new JLabel("DÌas de la semana para reproducir");
 		lblDasDeLa.setBounds(23, 188, 245, 16);
 		getContentPane().add(lblDasDeLa);
 
@@ -207,8 +206,8 @@ public class DialogoAdd extends JDialog implements ActionListener {
 		Metric[] metrics = {Metric.HOUR,Metric.MINUTE, Metric.SECOND};
 
 
-//		metric = new JComboBox<Metric>(metrics);
-		metric = new JComboBox<>();
+		metric = new JComboBox<Metric>(metrics);
+//		metric = new JComboBox<>();
 		metric.setBounds(189, 257, 129, 27);
 		getContentPane().add(metric);
 		
@@ -290,16 +289,22 @@ public class DialogoAdd extends JDialog implements ActionListener {
 		if(list.getEnd()!=null){
 			chckbxFin.setSelected(true);
 			timePicker_1.setTime(LocalDateTime.ofInstant(list.getEnd().toInstant(), ZoneId.systemDefault()).toLocalTime());
+			lblEnd.setEnabled(true);
+			timePicker_1.setEnabled(true);
 		}
 		if(list.getMetric()!=null){
 			chckbxRepetir.setSelected(true);
 			cadaN.setText(list.getCadaN()+"");
 			metric.setSelectedItem(list.getMetric());
+			cadaN.setEnabled(true);
+			metric.setEnabled(true);
+			lblRepetirCada.setEnabled(true);
+			chckbxFin.setEnabled(true);
 		}
 		
 		btnAgregar.setText("Guardar");
 		
-		titulo.setText("Editar reproducci√≥n");
+		titulo.setText("Editar reproducciÛn");
 		
 		
 		
@@ -363,7 +368,8 @@ public class DialogoAdd extends JDialog implements ActionListener {
 			}
 		} else if (e.getActionCommand()==AGREGAR){
 			if(edit){
-				mundo.eraseList(oldName);
+				System.out.println("borrando");
+				System.out.println(mundo.eraseList(oldName));
 			}
 			LocalDate date = datePicker.getDate();
 			LocalTime time = timePicker.getTime();
@@ -377,7 +383,7 @@ public class DialogoAdd extends JDialog implements ActionListener {
 			if (chosen == null){
 				File f = new File(textFieldArchivo.getText());
 				if (!f.exists()){
-					JOptionPane.showMessageDialog(this, "La ruta seleccionada no lleva a un archivo v√°lido");
+					JOptionPane.showMessageDialog(this, "La ruta seleccionada no lleva a un archivo v·lido");
 				}else{
 					chosen = f;
 				}
@@ -403,14 +409,14 @@ public class DialogoAdd extends JDialog implements ActionListener {
 					none = none || dias[i].isSelected();
 				}
 				if(!none){
-					JOptionPane.showMessageDialog(this, "Debe escoger al menos un d√≠a","Error", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Debe escoger al menos un dÌa","Error", JOptionPane.WARNING_MESSAGE);
 				}else{
 					if(mundo.scheduleListNoRep(nombre.getText(), chosen.getAbsolutePath(), add, days)){
 						this.dispose();
 						frame.refresh();
-						JOptionPane.showMessageDialog(this, "La reproducci√≥n se ha "+ (edit?"editado":"agregado") +" con √©xito");
+						JOptionPane.showMessageDialog(this, "La reproducciÛn se ha "+ (edit?"editado":"agregado") +" con Èxito");
 					}else{
-						JOptionPane.showMessageDialog(this, "El nombre que escogi√≥ ya existe. Por favor elija otro.","Error", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(this, "El nombre que escogiÛ ya existe. Por favor elija otro.","Error", JOptionPane.WARNING_MESSAGE);
 					}
 				}
 			}else if(chckbxFin.isSelected()){
@@ -423,14 +429,14 @@ public class DialogoAdd extends JDialog implements ActionListener {
 					none = none || dias[i].isSelected();
 				}
 				if(!none){
-					JOptionPane.showMessageDialog(this, "Debe escoger al menos un d√≠a","Error", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Debe escoger al menos un dÌa","Error", JOptionPane.WARNING_MESSAGE);
 				}else{
 					if(mundo.scheduleListRep(nombre.getText(), chosen.getAbsolutePath(), add, days, Integer.parseInt(cadaN.getText()), ((Metric)metric.getSelectedItem()), end)){
 						this.dispose();
 						frame.refresh();
-						JOptionPane.showMessageDialog(this, "La reproducci√≥n se ha "+ (edit?"editado":"agregado") +" con √©xito");
+						JOptionPane.showMessageDialog(this, "La reproducciÛn se ha "+ (edit?"editado":"agregado") +" con Èxito");
 					}else{
-						JOptionPane.showMessageDialog(this, "El nombre que escogi√≥ ya existe. Por favor elija otro.","Error", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(this, "El nombre que escogiÛ ya existe. Por favor elija otro.","Error", JOptionPane.WARNING_MESSAGE);
 					}
 				}
 			}else{
@@ -441,14 +447,14 @@ public class DialogoAdd extends JDialog implements ActionListener {
 					none = none || dias[i].isSelected();
 				}
 				if(!none){
-					JOptionPane.showMessageDialog(this, "Debe escoger al menos un d√≠a","Error", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Debe escoger al menos un dÌa","Error", JOptionPane.WARNING_MESSAGE);
 				}else{
 					if(mundo.scheduleListRep(nombre.getText(), chosen.getAbsolutePath(), add, days, Integer.parseInt(cadaN.getText()), ((Metric)metric.getSelectedItem()))){
 						this.dispose();
 						frame.refresh();
-						JOptionPane.showMessageDialog(this, "La reproducci√≥n se ha "+ (edit?"editado":"agregado") +" con √©xito");
+						JOptionPane.showMessageDialog(this, "La reproducciÛn se ha "+ (edit?"editado":"agregado") +" con Èxito");
 					}else{
-						JOptionPane.showMessageDialog(this, "El nombre que escogi√≥ ya existe. Por favor elija otro.","Error", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(this, "El nombre que escogiÛ ya existe. Por favor elija otro.","Error", JOptionPane.WARNING_MESSAGE);
 					}
 				}
 			}

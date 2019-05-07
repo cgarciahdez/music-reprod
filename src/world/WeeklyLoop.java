@@ -10,6 +10,7 @@ public class WeeklyLoop extends Loop {
 	
 	private Date endDate;
 	private boolean rep;
+	private SmallLoop internal;
 	
 	/**
 	 * Constructor to be used when there is no end date
@@ -26,7 +27,7 @@ public class WeeklyLoop extends Loop {
 		super(name, voiceFile, added, active, cadaN, start, metric);
 		rep = true;
 		Date end = new Date(start.getTime());
-		end.setHours(11);
+		end.setHours(23);
 		end.setMinutes(59);
 		endDate = end;
 		// TODO Auto-generated constructor stub
@@ -71,28 +72,37 @@ public class WeeklyLoop extends Loop {
 	public void schedule() {
 		Date now = new Date();
 		Date add = getStart();
-		while(add.before(now)){
-			add = new Date((now.getTime()+(Metric.WEEK.getMilis())));
-		}
+//		while(add.before(now)){
+//			add = new Date((now.getTime()+(Metric.WEEK.getMilis())));
+//		}
 		setStart(add);
-		System.out.println("scheduled: "+getStart());
-		Reprod.timer.schedule(this, getStart(), Metric.WEEK.getMilis());
+		System.out.println("scheduled weekly: "+getStart());
+		Reprod.timer.scheduleAtFixedRate(this, getStart(), Metric.WEEK.getMilis());
 		
+	}
+	
+	public void stopInternal() {
+		if(rep &&internal!=null)
+		{
+			internal.cancel();
+		}
 	}
 
 	@Override
 	public void run() {
+		System.out.println("running weekly");
 		if(rep){
+			System.out.println("Running weekly loop");
 			Date now = new Date();
-			SmallLoop sm = new SmallLoop(getName(), getVoiceFile(), now, true, getCadaN(), getStart(), getMetric());
+			internal= new SmallLoop(getName(), getVoiceFile(), now, true, getCadaN(), getStart(), getMetric());
 			
 			endDate.setYear(now.getYear());
 			endDate.setMonth(now.getMonth());
 			endDate.setDate(now.getDate());
-			sm.setEndDate(endDate);
+			internal.setEndDate(endDate);
 			
 			
-			sm.schedule();
+			internal.schedule();
 		}else{
 			play();
 		}

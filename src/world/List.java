@@ -153,6 +153,7 @@ public class List implements Serializable {
 	public void cancel(){
 		for (WeeklyLoop record: records){
 			if(record!=null){
+				record.stopInternal();
 				record.cancel();
 			}
 		}
@@ -162,8 +163,9 @@ public class List implements Serializable {
 	
 	private Date nextOfTheWeek(int dayOfWeek, Date date){
 		Calendar deit = Calendar.getInstance();
+		deit.setTime(date);
 		Date now = new Date();
-		if(deit.get(Calendar.DAY_OF_WEEK)==dayOfWeek&&date.after(now)){
+		if(deit.get(Calendar.DAY_OF_WEEK)==dayOfWeek){
 			return date;
 		}
         int diff = dayOfWeek - deit.get(Calendar.DAY_OF_WEEK);

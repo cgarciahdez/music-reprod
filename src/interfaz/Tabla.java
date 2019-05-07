@@ -113,7 +113,7 @@ public class Tabla extends JFrame implements ActionListener {
 
 		setMinimumSize(new Dimension(900, 429));
 
-		String[] columnNames = {"Nombre", "Archivo", "Hora", "DÃ­as de reproducciÃ³n","RepeticiÃ³n", "Hora fin", "Editar", "Borrar","Muestra"};
+		String[] columnNames = {"Nombre", "Archivo", "Hora", "Días de reproducción","Repetición", "Hora fin", "Editar", "Borrar","Muestra"};
 
 		Object[][] data = new Object[lists.keySet().size()][9];
 
@@ -151,7 +151,7 @@ public class Tabla extends JFrame implements ActionListener {
 				System.out.println(list.getName());
 				Object[] listDate = new Object[9];
 				listDate[0]=list.getName();
-				listDate[1]=list.getVoiceFile().split(File.separator)[list.getVoiceFile().split(File.separator).length-1];
+				listDate[1]=list.getVoiceFile().split("\\\\")[list.getVoiceFile().split("\\\\").length-1];
 				listDate[2] = LocalDateTime.ofInstant(list.getTime().toInstant(), ZoneId.systemDefault()).toLocalTime();
 				StringBuilder sb = new StringBuilder();
 				boolean[] dias = list.getDays();
@@ -160,6 +160,9 @@ public class Tabla extends JFrame implements ActionListener {
 					if(dias[j]){
 						sb.append(ds[j]+" ");
 					}	
+					else {
+						sb.append("__ ");
+					}
 				}
 				listDate[3] = sb.toString();
 				listDate[4] = list.getMetric()==null?"-":"Cada "+list.getCadaN()+" "+list.getMetric().getName();
@@ -187,7 +190,7 @@ public class Tabla extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e)
 			{
 				//		        JTable table = (JTable)e.getSource();
-				int resp = JOptionPane.showConfirmDialog(frame, "Esta seguro que desea borrar esta reproducciÃ³n? No podrÃ¡ recuperarla","ConfirmaciÃ³n",JOptionPane.YES_NO_OPTION);
+				int resp = JOptionPane.showConfirmDialog(frame, "Esta seguro que desea borrar esta reproducción? No podrá recuperarla","Confirmación",JOptionPane.YES_NO_OPTION);
 
 				if(resp == JOptionPane.YES_OPTION){
 
@@ -294,7 +297,7 @@ public class Tabla extends JFrame implements ActionListener {
 
 						}
 					}catch(Exception ex){
-						JOptionPane.showMessageDialog(null, "Hubo un problema reproduciendo el archivo de sonido. AsegÃºrese que el archivo que escogiÃ³ es un archivo de sonido vÃ¡ildo.");
+						JOptionPane.showMessageDialog(null, "Hubo un problema reproduciendo el archivo de sonido. Asegúrese que el archivo que escogió es un archivo de sonido váildo y que se encuentra en la ruta original.");
 					}
 					currentlyPlaying=row;
 				}else{
@@ -413,7 +416,7 @@ public class Tabla extends JFrame implements ActionListener {
 		
 		JMenuBar mb = new JMenuBar();
 		JMenu menu = new JMenu("Ayuda");
-		JMenuItem mi = new JMenuItem("Hola yo ayudo");
+		JMenuItem mi = new JMenuItem("haga click aquí para acceder a la ayuda");
 		mb.add(menu);
 		menu.add(mi);
 		mi.addActionListener(this);
@@ -595,13 +598,24 @@ public class Tabla extends JFrame implements ActionListener {
 					refresh();
 				} catch (ClassNotFoundException | IOException e1) {
 					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(this, "Hubo un problema cargando el archivo. AsegÃºrese que sea un archivo vÃ¡lido que guardÃ³ con anterioridad");
+					JOptionPane.showMessageDialog(this, "Hubo un problema cargando el archivo. Asegúrese que sea un archivo válido que guardó con anterioridad");
 				}
 			}
 			//		      if (rVal == JFileChooser.CANCEL_OPTION) {
 			//		        filename.setText("You pressed cancel");
 			//		        dir.setText("");
 			//		      }
+		}
+		else if (e.getActionCommand()==AYUDA) {
+			JOptionPane.showMessageDialog(this, "Para agregar un nuevo mensaje, haga click en el botón de agregar. La última sesión es guardada de manera automática"
+				+ ", \npero si desea guardar una sesión específica en otro archivo puede hacerlo haciendo click en el botón guardar. Para cargar una sesión "
+				+ "\nguardada anteriormente, haga click en el botón cargar. Para escuchar el archivo de sonido que eligió para un mensaje,"
+				+ " \nhaga click en el botón de play en la columna Muestra de la fila correspondiente. \n \n"
+				+ "En el diálogo de agregar, puede escoger una fecha si desea que la reproducción comience en el futuro. La fecha no"
+				+ "\ntiene que ser uno de los días de la semana específicados; la reproducción comenzará en el siguiente día válido"
+				+ "\ndespués de la fecha indicada. Si la fecha se deja en blanco, la reproducción empezará el siguiente día válido"
+				+ "\ndespués del momento en que se añada el mensaje. Si se escoge repetir el mensaje, y no escoje una hora final, este"
+				+ "\nse repetirá hasta el final del día.");
 		}
 
 	}

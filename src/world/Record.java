@@ -34,6 +34,7 @@ public abstract class Record extends TimerTask implements Serializable {
 	public void play(){
 		System.out.println("play");
 		System.out.println(name);
+		System.out.println(this.scheduledExecutionTime());
 		try{
 
 			if(voiceFile.endsWith(".mp3")){
@@ -50,7 +51,7 @@ public abstract class Record extends TimerTask implements Serializable {
 				AudioPlayer.player.start(as);
 			}
 		}catch(Exception e){
-			JOptionPane.showMessageDialog(null, "Hubo un problema reproduciendo el archivo de sonido. AsegÃºrese que el archivo que escogiÃ³ es un archivo de sonido vÃ¡ildo.");
+			JOptionPane.showMessageDialog(null, "Hubo un problema reproduciendo el archivo de sonido. Asegúrese que el archivo que escogió es un archivo de sonido váildo.");
 		}
 	}
 

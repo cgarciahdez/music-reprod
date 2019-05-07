@@ -16,9 +16,11 @@ public class SmallLoop extends Loop {
 
 	@Override
 	public void run() {
+		System.out.println("Running small loop. End date: "+endDate);
 		if(endDate!=null){
 			Date now = new Date();
 			if (now.after(endDate)){
+				System.out.println("what");
 				this.cancel();
 			}else{
 				play();
@@ -38,12 +40,12 @@ public class SmallLoop extends Loop {
 
 	@Override
 	public void schedule() {
-//		Date now = new Date();
-//		Date add = getStart();
-//		while(add.before(now)){
-//			add = new Date((now.getTime()+(getCadaN()*getMetric().getMilis())));
-//		}
-//		setStart(add);
+		Date now = getAdded();
+		Date add = getStart();
+		while(add.before(now)){
+			add = new Date((add.getTime()+(getCadaN()*getMetric().getMilis())));
+		}
+		setStart(add);
 		System.out.println("scheduled: "+getStart());
 		Reprod.timer.schedule(this, getStart(), getCadaN()*getMetric().getMilis());
 	}
