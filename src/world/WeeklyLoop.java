@@ -10,6 +10,7 @@ public class WeeklyLoop extends Loop {
 	
 	private Date endDate;
 	private boolean rep;
+	private SmallLoop smallLoop;
 	
 	/**
 	 * Constructor to be used when there is no end date
@@ -26,10 +27,11 @@ public class WeeklyLoop extends Loop {
 		super(name, voiceFile, added, active, cadaN, start, metric);
 		rep = true;
 		Date end = new Date(start.getTime());
-		end.setHours(11);
+		end.setHours(23);
 		end.setMinutes(59);
 		endDate = end;
 		// TODO Auto-generated constructor stub
+		System.out.println("made a weekly");
 	}
 	
 	/**
@@ -82,21 +84,37 @@ public class WeeklyLoop extends Loop {
 
 	@Override
 	public void run() {
-		if(rep){
-			Date now = new Date();
-			SmallLoop sm = new SmallLoop(getName(), getVoiceFile(), now, true, getCadaN(), getStart(), getMetric());
-			
-			endDate.setYear(now.getYear());
-			endDate.setMonth(now.getMonth());
-			endDate.setDate(now.getDate());
-			sm.setEndDate(endDate);
-			
-			
-			sm.schedule();
-		}else{
-			play();
+		if(!isActive()){
+			this.cancel();
+		} else {
+			if(rep){
+				Date now = new Date();
+				System.out.println("aiuda");
+				smallLoop = new SmallLoop(getName(), getVoiceFile(), now, true, getCadaN(), getStart(), getMetric());
+				
+				endDate.setYear(now.getYear());
+				endDate.setMonth(now.getMonth());
+				endDate.setDate(now.getDate());
+				smallLoop.setEndDate(endDate);
+				
+				System.out.println("hmmmm");
+				smallLoop.schedule();
+			}else{
+				play();
+			}
 		}
 		
+	}
+	
+	@Override
+	public boolean cancel() {
+		if(smallLoop == null){
+			this.setActive(false);
+			return super.cancel();
+		}
+		this.setActive(false);
+		smallLoop.setActive(false);
+		return smallLoop.cancel() && super.cancel();
 	}
 
 }

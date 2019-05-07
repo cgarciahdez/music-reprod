@@ -36,7 +36,6 @@ import java.util.Calendar;
 import java.util.Date; 
 import java.util.Properties;
 
-import com.apple.dnssd.TXTRecord;
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.TimePickerSettings;
 
@@ -207,8 +206,8 @@ public class DialogoAdd extends JDialog implements ActionListener {
 		Metric[] metrics = {Metric.HOUR,Metric.MINUTE, Metric.SECOND};
 
 
-//		metric = new JComboBox<Metric>(metrics);
-		metric = new JComboBox<>();
+		metric = new JComboBox<Metric>(metrics);
+//		metric = new JComboBox<>();
 		metric.setBounds(189, 257, 129, 27);
 		getContentPane().add(metric);
 		

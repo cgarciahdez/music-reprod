@@ -154,6 +154,8 @@ public class List implements Serializable {
 		for (WeeklyLoop record: records){
 			if(record!=null){
 				record.cancel();
+				record.setActive(false);
+				System.out.println("canceling record: "+record.getName());
 			}
 		}
 	}
