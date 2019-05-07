@@ -16,14 +16,16 @@ public class BigLoop extends Loop {
 
 	@Override
 	public void run() {
-		play();
-		changeStart();
-		System.out.println(getStart());
-		Reprod.rescheduleBigLoop(this);
-		
-		System.out.println(this.scheduledExecutionTime());
-		//Reprod.timer;
-		
+		if(!this.isActive()){
+			this.cancel();
+		} else {
+			play();
+			changeStart();
+			System.out.println(getStart());
+			Reprod.rescheduleBigLoop(this);
+			
+			System.out.println(this.scheduledExecutionTime());
+		}
 	}
 
 	@Override

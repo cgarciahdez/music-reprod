@@ -21,8 +21,8 @@ import java.util.TreeMap;
 public class Reprod implements Serializable {
 
 	public final static String SEP = File.separator;
-	public final static String PATH = "C:"+SEP+"Messager";
-//	public final static String PATH = SEP+"Users"+SEP+"camilagarciahernandez"+SEP+"Documents"+SEP+"Personal"+SEP+"Proyectos"+SEP+"Messager";
+//	public final static String PATH = "C:"+SEP+"Messager";
+	public final static String PATH = SEP+"Users"+SEP+"camilagarciahernandez"+SEP+"Documents"+SEP+"Personal"+SEP+"Proyectos"+SEP+"Messager";
 
 
 	private static HashMap<String,Record> records;

@@ -12,26 +12,26 @@ public class SmallLoop extends Loop {
 			int cadaN, Date start, Metric metric) {
 		super(name, voiceFile, added, active, cadaN, start, metric);
 		// TODO Auto-generated constructor stub
+		System.out.println("made a small");
 	}
 
 	@Override
 	public void run() {
-		System.out.println("Running small loop. End date: "+endDate);
-		if(endDate!=null){
-			Date now = new Date();
-			if (now.after(endDate)){
-				System.out.println("what");
-				this.cancel();
-			}else{
+		if(!this.isActive()){
+			this.cancel();
+		} else {			
+			if(endDate!=null){
+				Date now = new Date();
+				if (now.after(endDate)){
+					this.cancel();
+				}else{
+					play();
+				}
+			}
+			else {
 				play();
 			}
 		}
-		else {
-			play();
-		}
-		
-		
-		
 	}
 	
 	public void setEndDate(Date end){

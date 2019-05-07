@@ -31,6 +31,7 @@ public class WeeklyLoop extends Loop {
 		end.setMinutes(59);
 		endDate = end;
 		// TODO Auto-generated constructor stub
+		System.out.println("made a weekly");
 	}
 	
 	/**
@@ -107,6 +108,17 @@ public class WeeklyLoop extends Loop {
 			play();
 		}
 		
+	}
+	
+	@Override
+	public boolean cancel() {
+		if(internal == null){
+			this.setActive(false);
+			return super.cancel();
+		}
+		this.setActive(false);
+		internal.setActive(false);
+		return internal.cancel() && super.cancel();
 	}
 
 }

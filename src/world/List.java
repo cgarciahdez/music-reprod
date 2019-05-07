@@ -155,6 +155,8 @@ public class List implements Serializable {
 			if(record!=null){
 				record.stopInternal();
 				record.cancel();
+				record.setActive(false);
+				System.out.println("canceling record: "+record.getName());
 			}
 		}
 	}
